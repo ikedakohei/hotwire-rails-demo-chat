@@ -1,0 +1,23 @@
+version: '3.8'
+
+volumes:
+  postgres_data: {}
+
+services:
+  web:
+    build: .
+    tty: true
+    volumes:
+      - type: bind
+        source: .
+        target: /hotwire
+    ports:
+      - "3000:3000"
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:latest
+    tty: true
+    ports:
+      - "6379:6379"
